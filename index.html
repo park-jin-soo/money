@@ -25,15 +25,19 @@
             <div class="bg-white rounded-[2rem] shadow-sm p-8 border border-gray-100 flex flex-col transition-all hover:shadow-md">
                 <div class="mb-5 text-center">
                     <span class="text-[10px] font-black text-blue-500 bg-blue-50 px-2 py-1 rounded uppercase tracking-widest">Shopping Connect</span>
-                    <h2 class="text-2xl font-bold text-gray-800 mt-2">일반형</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-2">쇼핑커넥트 전용 일반형</h2>
                     <p class="text-xl font-bold text-gray-900 mt-1">20,000원 <span class="text-xs text-gray-400 font-normal">/ 월·계정</span></p>
                 </div>
                 <ul class="text-[13px] text-gray-600 space-y-3 mb-8 flex-grow border-t pt-4">
                     <li>✅ 쇼핑커넥트 원고 자동 생성</li>
                     <li>✅ 원고 임시저장 및 관리</li>
                     <li>✅ 블로그 즉시 발행</li>
-                    <li class="font-bold text-red-500 underline">✅ 유료 스댓공 프로그램 불포함</li>
                 </ul>
+                <div class="mt-4 mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-center">
+                    <p class="text-[11px] text-red-600 font-semibold leading-relaxed">
+                        유료 스댓공 프로그램은<br>포함되지 않습니다.
+                    </p>
+                </div>
                 <div class="mt-auto bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
                     <label class="block text-[11px] font-bold text-gray-400 mb-2 leading-tight italic">사용할 계정수량에 맞춰 선택하세요</label>
                     <select id="qty_basic" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-slate-200 rounded-xl p-2.5 outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
@@ -47,14 +51,18 @@
                 <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-[11px] font-black shadow-lg">추천상품</div>
                 <div class="mb-5 text-center">
                     <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded uppercase tracking-widest">Shopping Connect</span>
-                    <h2 class="text-2xl font-bold text-gray-800 mt-2">고급형</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-2">쇼핑커넥트 전용 고급형</h2>
                     <p class="text-xl font-bold text-gray-900 mt-1">30,000원 <span class="text-xs text-gray-400 font-normal">/ 월·계정</span></p>
                 </div>
                 <ul class="text-[13px] text-gray-600 space-y-3 mb-8 flex-grow border-t pt-4">
-                    <li class="font-bold text-blue-600">⭐ 일반형 모든 기능 포함</li>
+                    <li class="font-bold text-blue-600">⭐ 쇼핑커넥트 전용 일반형 모든 기능 포함</li>
                     <li class="font-bold text-indigo-600">✅ 유료 스댓공 프로그램 포함</li>
-                    <li class="text-gray-400 italic text-xs text-center">※ 올인원은 포함되지 않습니다</li>
                 </ul>
+                <div class="mt-4 mb-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-xl text-center">
+                    <p class="text-[11px] text-blue-600 font-semibold leading-relaxed">
+                        올인원은<br>포함되지 않습니다.
+                    </p>
+                </div>
                 <div class="mt-auto bg-blue-50 p-4 rounded-2xl border border-blue-100 text-center">
                     <label class="block text-[11px] font-bold text-blue-400 mb-2 leading-tight italic">사용할 계정수량에 맞춰 선택하세요</label>
                     <select id="qty_premium" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-blue-200 rounded-xl p-2.5 outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
@@ -90,11 +98,16 @@
                     <h2 class="text-xl font-bold text-gray-800 mt-2">올인원 월 구독</h2>
                     <p class="text-xl font-bold text-purple-600 mt-1">10,000원</p>
                 </div>
-                <div class="grid grid-cols-2 gap-1.5 mb-6 border-t pt-4">
+                <div class="grid grid-cols-2 gap-1.5 mb-4 border-t pt-4">
                     <div class="program-card">시니어공감</div><div class="program-card">체험단맛집</div>
                     <div class="program-card">트렌드키워드</div><div class="program-card">이케아전용</div>
                     <div class="program-card">스포츠뉴스</div><div class="program-card">채우미연예</div>
                     <div class="program-card col-span-2 text-[10px] bg-slate-50 border-dashed border-slate-200">지식인 / 헤어 / 다이소 등</div>
+                </div>
+                <div class="mb-4 px-4 py-3 bg-purple-50 border border-purple-200 rounded-xl text-center">
+                    <p class="text-[11px] text-purple-600 font-semibold leading-relaxed">
+                        올인원 마크 있는 프로그램은<br>구독기간 전체 사용가능합니다.
+                    </p>
                 </div>
                 <div class="mt-auto bg-purple-50 p-4 rounded-xl flex items-center justify-between border border-purple-100">
                     <span class="text-xs font-bold text-purple-700">단독 구독하기</span>
@@ -194,8 +207,8 @@
             const fields = document.getElementById('dynamic-fields');
             summary.innerHTML = ""; fields.innerHTML = "";
 
-            if(data.qB > 0) { addSummary(summary, '쇼핑커넥트 일반형', data.qB); addInputs(fields, '일반형', data.qB, 'blue'); }
-            if(data.qP > 0) { addSummary(summary, '쇼핑커넥트 고급형', data.qP); addInputs(fields, '고급형', data.qP, 'indigo'); }
+            if(data.qB > 0) { addSummary(summary, '쇼핑커넥트 전용 일반형', data.qB); addInputs(fields, '쇼핑커넥트 전용 일반형', data.qB, 'blue'); }
+            if(data.qP > 0) { addSummary(summary, '쇼핑커넥트 전용 고급형', data.qP); addInputs(fields, '쇼핑커넥트 전용 고급형', data.qP, 'indigo'); }
             if(data.qS > 0) { addSummary(summary, '유료 스댓공 프로그램', data.qS); addInputs(fields, '유료 스댓공', data.qS, 'purple'); }
             if(data.isA) { addSummary(summary, '올인원 구독 서비스', 1); addInputs(fields, '올인원 구독', 1, 'purple'); }
 
@@ -242,7 +255,7 @@
             const payload = {
                 user_email: userEmail,
                 total_price: data.total.toLocaleString() + "원",
-                details: `일반형(${data.qB}), 고급형(${data.qP}), 스댓공(${data.qS}), 올인원(${data.isA?'O':'X'})`,
+                details: `쇼핑커넥트 전용 일반형(${data.qB}), 쇼핑커넥트 전용 고급형(${data.qP}), 스댓공(${data.qS}), 올인원(${data.isA?'O':'X'})`,
                 account_list: idsFormatted 
             };
 
