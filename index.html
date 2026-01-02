@@ -6,151 +6,159 @@
     <title>채우미 블로그 컬렉션 서비스 신청 하기</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            // 여기에 본인의 Public Key를 입력하세요
-            emailjs.init("YOUR_PUBLIC_KEY"); 
-        })();
-    </script>
     <style>
         body { font-family: 'Pretendard', sans-serif; background-color: #f1f5f9; }
         .hidden { display: none; }
         .program-card { font-size: 0.7rem; padding: 4px 8px; border-radius: 6px; background: #ffffff; border: 1px solid #e2e8f0; color: #64748b; text-align: center; }
-        select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 0.7rem center; background-size: 1em; }
+        select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 0.7rem center; background-size: 1rem; }
     </style>
 </head>
 <body class="py-12 px-4">
 
     <div id="selection-page" class="max-w-7xl mx-auto">
         <header class="text-center mb-12">
-            <h1 class="text-4xl font-black text-gray-900 mb-3 uppercase tracking-tight">💎 채우미 블로그 컬렉션 서비스 신청 하기</h1>
-            <p class="text-gray-500 text-lg">사용할 계정 수량에 맞춰 옵션을 선택해 주세요.</p>
+            <h1 class="text-4xl font-black text-gray-900 mb-3 tracking-tight">💎 채우미 블로그 컬렉션 서비스 신청 하기</h1>
+            <p class="text-gray-500 text-lg font-medium">사용할 계정 수량에 맞춰 옵션을 선택해 주세요.</p>
         </header>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div class="bg-white rounded-3xl shadow-sm p-6 border border-gray-200 flex flex-col">
-                <div class="mb-5">
-                    <span class="text-[10px] font-black text-blue-500 bg-blue-50 px-2 py-1 rounded-md">Standard</span>
-                    <h2 class="text-xl font-bold text-gray-800 mt-2">일반형</h2>
-                    <p class="text-xl font-bold text-gray-900 mt-1">20,000원 <span class="text-xs text-gray-400">/ 월·계정</span></p>
+            <div class="bg-white rounded-[2rem] shadow-sm p-8 border border-gray-100 flex flex-col transition-all hover:shadow-md">
+                <div class="mb-5 text-center">
+                    <span class="text-[10px] font-black text-blue-500 bg-blue-50 px-2 py-1 rounded uppercase tracking-widest">Shopping Connect</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-2">일반형</h2>
+                    <p class="text-xl font-bold text-gray-900 mt-1">20,000원 <span class="text-xs text-gray-400 font-normal">/ 월·계정</span></p>
                 </div>
                 <ul class="text-[13px] text-gray-600 space-y-3 mb-8 flex-grow border-t pt-4">
-                    <li>✅ 원고 자동 생성 / 임시저장</li>
+                    <li>✅ 쇼핑커넥트 원고 자동 생성</li>
+                    <li>✅ 원고 임시저장 및 관리</li>
                     <li>✅ 블로그 즉시 발행</li>
-                    <li class="font-bold text-red-500">❌ 유료 스댓공 불포함</li>
+                    <li class="font-bold text-red-500 underline">✅ 유료 스댓공 프로그램 불포함</li>
                 </ul>
-                <div class="mt-auto bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                    <select id="qty_basic" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-slate-200 rounded-xl p-2.5 outline-none cursor-pointer">
+                <div class="mt-auto bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
+                    <label class="block text-[11px] font-bold text-gray-400 mb-2 leading-tight italic">사용할 계정수량에 맞춰 선택하세요</label>
+                    <select id="qty_basic" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-slate-200 rounded-xl p-2.5 outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
                         <option value="0">선택 안함</option>
                         <script>for(let i=1; i<=10; i++) document.write(`<option value="${i}">${i}계정</option>`);</script>
                     </select>
                 </div>
             </div>
 
-            <div class="bg-white rounded-3xl shadow-xl p-6 border-2 border-blue-500 flex flex-col relative transform lg:scale-105 z-10">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-[11px] font-black">추천상품</div>
-                <div class="mb-5">
-                    <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-md">Premium</span>
-                    <h2 class="text-xl font-bold text-gray-800 mt-2">고급형</h2>
-                    <p class="text-xl font-bold text-gray-900 mt-1">30,000원 <span class="text-xs text-gray-400">/ 월·계정</span></p>
+            <div class="bg-white rounded-[2rem] shadow-xl p-8 border-2 border-blue-500 flex flex-col relative transform lg:scale-105 z-10">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-[11px] font-black shadow-lg">추천상품</div>
+                <div class="mb-5 text-center">
+                    <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded uppercase tracking-widest">Shopping Connect</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-2">고급형</h2>
+                    <p class="text-xl font-bold text-gray-900 mt-1">30,000원 <span class="text-xs text-gray-400 font-normal">/ 월·계정</span></p>
                 </div>
                 <ul class="text-[13px] text-gray-600 space-y-3 mb-8 flex-grow border-t pt-4">
                     <li class="font-bold text-blue-600">⭐ 일반형 모든 기능 포함</li>
                     <li class="font-bold text-indigo-600">✅ 유료 스댓공 프로그램 포함</li>
+                    <li class="text-gray-400 italic text-xs text-center">※ 올인원은 포함되지 않습니다</li>
                 </ul>
-                <div class="mt-auto bg-blue-50 p-4 rounded-2xl border border-blue-100">
-                    <select id="qty_premium" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-blue-200 rounded-xl p-2.5 outline-none cursor-pointer">
+                <div class="mt-auto bg-blue-50 p-4 rounded-2xl border border-blue-100 text-center">
+                    <label class="block text-[11px] font-bold text-blue-400 mb-2 leading-tight italic">사용할 계정수량에 맞춰 선택하세요</label>
+                    <select id="qty_premium" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-blue-200 rounded-xl p-2.5 outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
                         <option value="0">선택 안함</option>
                         <script>for(let i=1; i<=10; i++) document.write(`<option value="${i}" ${i===1?'selected':''}>${i}계정</option>`);</script>
                     </select>
                 </div>
             </div>
 
-            <div class="bg-white rounded-3xl shadow-sm p-6 border border-gray-200 flex flex-col">
-                <div class="mb-5">
-                    <span class="text-[10px] font-black text-indigo-500 bg-indigo-50 px-2 py-1 rounded-md">Post Booster</span>
+            <div class="bg-white rounded-[2rem] shadow-sm p-8 border border-gray-200 flex flex-col transition-all hover:shadow-md">
+                <div class="mb-5 text-center">
+                    <span class="text-[10px] font-black text-indigo-500 bg-indigo-50 px-2 py-1 rounded uppercase tracking-widest">Post Booster</span>
                     <h2 class="text-xl font-bold text-gray-800 mt-2">유료 스댓공</h2>
-                    <p class="text-xl font-bold text-gray-900 mt-1">20,000원 <span class="text-xs text-gray-400">/ 월·계정</span></p>
+                    <p class="text-xl font-bold text-gray-900 mt-1">20,000원 <span class="text-xs text-gray-400 font-normal">/ 월·계정</span></p>
                 </div>
-                <ul class="text-[13px] text-gray-600 space-y-3 mb-8 flex-grow border-t pt-4">
-                    <li class="text-[11px] text-indigo-500 font-bold bg-indigo-50 p-2 rounded mb-2 text-center">30분 내 스댓공/체류 지원</li>
-                    <li>🚀 발행 자동 감지</li>
+                <ul class="text-[13px] text-gray-600 space-y-2 mb-8 flex-grow border-t pt-4">
+                    <li class="text-[11px] text-indigo-600 font-bold bg-indigo-50 p-2 rounded mb-2 text-center">30분 내 스댓공/체류 지원</li>
+                    <li>🚀 발행 자동 감지 및 즉시 지원</li>
                     <li>💬 고퀄리티 댓글 & 공감</li>
                 </ul>
-                <div class="mt-auto bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
-                    <select id="qty_sdg" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-indigo-200 rounded-xl p-2.5 outline-none cursor-pointer">
+                <div class="mt-auto bg-indigo-50 p-4 rounded-2xl border border-indigo-100 text-center">
+                    <label class="block text-[11px] font-bold text-indigo-400 mb-2 leading-tight italic">사용할 계정수량에 맞춰 선택하세요</label>
+                    <select id="qty_sdg" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-indigo-200 rounded-xl p-2.5 outline-none cursor-pointer focus:ring-2 focus:ring-indigo-500">
                         <option value="0">선택 안함</option>
                         <script>for(let i=1; i<=10; i++) document.write(`<option value="${i}">${i}계정</option>`);</script>
                     </select>
                 </div>
             </div>
 
-            <div class="bg-white rounded-3xl shadow-sm p-6 border border-gray-200 flex flex-col">
-                <div class="mb-4">
-                    <span class="text-[10px] font-black text-purple-500 bg-purple-50 px-2 py-1 rounded-md">Utility Pack</span>
+            <div class="bg-white rounded-[2rem] shadow-sm p-8 border border-gray-200 flex flex-col transition-all hover:shadow-md">
+                <div class="mb-4 text-center">
+                    <span class="text-[10px] font-black text-purple-500 bg-purple-50 px-2 py-1 rounded uppercase tracking-widest">Utility Pack</span>
                     <h2 class="text-xl font-bold text-gray-800 mt-2">올인원 월 구독</h2>
                     <p class="text-xl font-bold text-purple-600 mt-1">10,000원</p>
                 </div>
                 <div class="grid grid-cols-2 gap-1.5 mb-6 border-t pt-4">
-                    <div class="program-card">시니어공감</div><div class="program-card">맛집생성</div>
-                    <div class="program-card">키워드</div><div class="program-card">이케아</div>
-                    <div class="program-card">스포츠</div><div class="program-card">연예뉴스</div>
+                    <div class="program-card">시니어공감</div><div class="program-card">체험단맛집</div>
+                    <div class="program-card">트렌드키워드</div><div class="program-card">이케아전용</div>
+                    <div class="program-card">스포츠뉴스</div><div class="program-card">채우미연예</div>
+                    <div class="program-card col-span-2 text-[10px] bg-slate-50 border-dashed border-slate-200">지식인 / 헤어 / 다이소 등</div>
                 </div>
                 <div class="mt-auto bg-purple-50 p-4 rounded-xl flex items-center justify-between border border-purple-100">
                     <span class="text-xs font-bold text-purple-700">단독 구독하기</span>
-                    <input type="checkbox" id="check_allinone" onchange="calculate()" class="w-5 h-5 rounded text-purple-600 cursor-pointer">
+                    <input type="checkbox" id="check_allinone" onchange="calculate()" class="w-6 h-6 rounded border-purple-300 text-purple-600 cursor-pointer focus:ring-purple-500">
                 </div>
             </div>
         </div>
 
         <div class="max-w-4xl mx-auto bg-slate-900 rounded-[2.5rem] p-10 shadow-2xl text-white">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                <div>
-                    <p class="text-slate-400 text-sm font-medium mb-1 tracking-wider">FINAL TOTAL</p>
-                    <div class="flex items-baseline">
+                <div class="text-center md:text-left">
+                    <p class="text-slate-400 text-sm font-semibold mb-1 uppercase tracking-widest">Final Total</p>
+                    <div class="flex items-baseline justify-center md:justify-start">
                         <span class="text-6xl font-black text-white" id="display_total">30,000</span><span class="text-2xl font-bold ml-2 text-slate-300">원</span>
                     </div>
                 </div>
-                <button onclick="goToPayment()" class="w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white py-5 px-16 rounded-2xl font-black text-xl transition-all shadow-xl">구매 신청하기</button>
+                <button onclick="goToPayment()" class="w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white py-6 px-16 rounded-2xl font-black text-xl transition-all shadow-xl active:scale-95 shadow-blue-500/20">구매 신청하기</button>
             </div>
         </div>
     </div>
 
     <div id="payment-page" class="max-w-3xl mx-auto hidden">
-        <div class="bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-gray-100">
-            <div class="bg-slate-900 text-white p-10 text-center">
-                <h2 class="text-2xl font-black mb-2">결제 및 계정 정보 입력</h2>
-                <p class="text-slate-400 text-sm italic">무통장 입금 후 아이디를 입력하고 주문완료를 눌러주세요.</p>
+        <div class="bg-white rounded-[3.5rem] shadow-2xl overflow-hidden border border-gray-100">
+            <div class="bg-slate-900 text-white p-12 text-center">
+                <h2 class="text-3xl font-black mb-2 tracking-tight">결제 및 계정 정보 입력</h2>
+                <p class="text-slate-400 text-sm italic">무통장 입금 후 상세 정보를 입력해주시면 메일이 자동 발송됩니다.</p>
             </div>
 
-            <div class="p-8">
-                <div class="bg-blue-50 rounded-3xl p-6 mb-8 border border-blue-100">
-                    <h3 class="text-blue-600 font-bold mb-3 text-sm">🏦 무통장 입금 안내</h3>
-                    <div class="grid grid-cols-2 gap-y-2 text-sm">
-                        <span class="text-gray-500">입금 은행</span><span class="font-bold text-slate-800 text-right">토스뱅크</span>
-                        <span class="text-gray-500">계좌 번호</span><span class="font-black text-blue-600 text-right">1001-3085-3057</span>
+            <div class="p-8 md:p-12">
+                <div class="bg-blue-50 rounded-[2rem] p-8 mb-8 border border-blue-100">
+                    <h3 class="text-blue-600 font-bold mb-4 flex items-center text-xs uppercase tracking-wider">🏦 무통장 입금 정보</h3>
+                    <div class="grid grid-cols-2 gap-y-3 text-sm border-t border-blue-100 pt-5">
+                        <span class="text-gray-500">입금 은행</span><span class="font-bold text-slate-800 text-right">토스뱅크 (Toss Bank)</span>
+                        <span class="text-gray-500">계좌 번호</span><span class="font-black text-2xl text-blue-600 text-right tracking-tighter">1001-3085-3057</span>
                         <span class="text-gray-500">예금주</span><span class="font-bold text-slate-800 text-right">박진수</span>
                     </div>
                 </div>
 
-                <div class="mb-8">
-                    <h3 class="font-bold text-slate-800 mb-4 flex items-center">👤 계정 아이디 입력</h3>
-                    <div id="dynamic-fields" class="space-y-4"></div>
-                </div>
-
-                <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200">
-                    <h3 class="text-slate-500 font-bold text-xs uppercase mb-4 tracking-widest">Order Summary</h3>
-                    <div id="purchase-summary-list" class="space-y-3 mb-6"></div>
-                    <div class="flex justify-between items-center pt-4 border-t border-slate-200">
-                        <span class="font-bold text-slate-800">최종 결제 금액</span>
-                        <span class="text-3xl font-black text-blue-600" id="final_price_display">0원</span>
+                <div class="bg-white rounded-[1.5rem] p-6 border border-gray-100 mb-8 shadow-sm">
+                    <h3 class="font-black text-slate-800 text-sm mb-4 flex items-center">📧 주문 내역 수신 이메일</h3>
+                    <div class="relative">
+                        <label class="text-[10px] text-gray-400 absolute left-4 top-2 uppercase tracking-tighter">Email Address</label>
+                        <input type="email" id="user_email" placeholder="내역을 수신할 이메일을 입력하세요" 
+                               class="w-full pt-6 pb-2 px-4 border border-gray-100 rounded-xl outline-none text-sm font-bold bg-white focus:ring-2 focus:ring-blue-500 transition-all">
                     </div>
                 </div>
 
-                <div class="mt-8 space-y-4">
-                    <button id="finish-btn" onclick="finishOrder()" class="w-full bg-slate-900 hover:bg-black text-white py-6 rounded-3xl font-black text-2xl transition-all shadow-xl active:scale-95">주문완료</button>
-                    <button onclick="goBack()" class="w-full text-slate-400 font-bold text-sm underline text-center block">수량 수정하러 가기</button>
+                <div class="mb-10">
+                    <h3 class="font-black text-slate-800 text-lg mb-6 flex items-center">👤 서비스 이용 계정 아이디 입력</h3>
+                    <div id="dynamic-fields" class="space-y-6"></div>
+                </div>
+
+                <div class="bg-slate-50 rounded-[2rem] p-8 border border-slate-200">
+                    <h3 class="text-slate-400 font-bold text-[10px] uppercase mb-5 tracking-widest">Order Detail Summary</h3>
+                    <div id="summary-list" class="space-y-3 mb-6"></div>
+                    <div class="flex justify-between items-center pt-6 border-t border-slate-200">
+                        <span class="font-bold text-slate-800 text-xl">최종 결제 금액</span>
+                        <span class="text-4xl font-black text-blue-600" id="final_total_display">0원</span>
+                    </div>
+                </div>
+
+                <div class="mt-12 space-y-4 text-center">
+                    <button id="submit-btn" onclick="finishOrder()" class="w-full bg-slate-900 hover:bg-black text-white py-7 rounded-[2rem] font-black text-2xl shadow-xl transition-all active:scale-95">주문완료</button>
+                    <button onclick="goBack()" class="text-slate-400 font-bold text-sm underline mt-4">수량 수정하러 가기</button>
                 </div>
             </div>
         </div>
@@ -158,11 +166,13 @@
 
     <script>
         const PRICES = { BASIC: 20000, PREMIUM: 30000, SDG: 20000, ALLINONE: 10000 };
+        // 발급받은 실제 GAS URL입니다.
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbzPVrUSXjEJEzZ8Ib5OZqRM7UZVCJQVA7yDspIomvOK5dNre7lFSnpQ8t9Aq4RCgglW/exec"; 
 
         function calculate() {
-            const qB = parseInt(document.getElementById('qty_basic').value);
-            const qP = parseInt(document.getElementById('qty_premium').value);
-            const qS = parseInt(document.getElementById('qty_sdg').value);
+            const qB = parseInt(document.getElementById('qty_basic').value) || 0;
+            const qP = parseInt(document.getElementById('qty_premium').value) || 0;
+            const qS = parseInt(document.getElementById('qty_sdg').value) || 0;
             const isA = document.getElementById('check_allinone').checked;
 
             let total = (qB * PRICES.BASIC) + (qP * PRICES.PREMIUM) + (qS * PRICES.SDG);
@@ -174,85 +184,83 @@
 
         function goToPayment() {
             const data = calculate();
-            if (data.total === 0) { alert("선택된 서비스가 없습니다."); return; }
+            if (data.total === 0) { alert("서비스를 선택해 주세요."); return; }
 
             document.getElementById('selection-page').classList.add('hidden');
             document.getElementById('payment-page').classList.remove('hidden');
-            document.getElementById('final_price_display').innerText = data.total.toLocaleString() + "원";
+            document.getElementById('final_total_display').innerText = data.total.toLocaleString() + "원";
 
-            // 요약 표시
-            const summaryList = document.getElementById('purchase-summary-list');
-            summaryList.innerHTML = "";
-            if(data.qB > 0) appendSummary(summaryList, '일반형', data.qB);
-            if(data.qP > 0) appendSummary(summaryList, '고급형', data.qP);
-            if(data.qS > 0) appendSummary(summaryList, '유료 스댓공', data.qS);
-            if(data.isA) appendSummary(summaryList, '올인원 패키지', 1);
-
-            // 입력 필드
+            const summary = document.getElementById('summary-list');
             const fields = document.getElementById('dynamic-fields');
-            fields.innerHTML = "";
-            addFields(fields, '일반형', data.qB, 'blue');
-            addFields(fields, '고급형', data.qP, 'indigo');
-            addFields(fields, '유료 스댓공', data.qS, 'purple');
+            summary.innerHTML = ""; fields.innerHTML = "";
+
+            if(data.qB > 0) { addSummary(summary, '쇼핑커넥트 일반형', data.qB); addInputs(fields, '일반형', data.qB, 'blue'); }
+            if(data.qP > 0) { addSummary(summary, '쇼핑커넥트 고급형', data.qP); addInputs(fields, '고급형', data.qP, 'indigo'); }
+            if(data.qS > 0) { addSummary(summary, '유료 스댓공 프로그램', data.qS); addInputs(fields, '유료 스댓공', data.qS, 'purple'); }
+            if(data.isA) { addSummary(summary, '올인원 구독 서비스', 1); addInputs(fields, '올인원 구독', 1, 'purple'); }
+
             window.scrollTo(0, 0);
         }
 
-        function appendSummary(parent, name, count) {
-            parent.innerHTML += `<div class="flex justify-between text-sm text-slate-600"><span>${name}</span><span class="font-bold">${count}계정</span></div>`;
+        function addSummary(parent, name, count) {
+            parent.innerHTML += `<div class="flex justify-between text-slate-600 font-medium text-sm"><span>${name}</span><span class="font-bold text-slate-900">${count}계정</span></div>`;
         }
 
-        function addFields(container, label, count, color) {
-            if (count > 0) {
-                let html = `<div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 mb-4"><h4 class="text-[10px] font-black text-${color}-600 uppercase mb-2">[ ${label} ]</h4>`;
-                for (let i = 1; i <= count; i++) {
-                    html += `<div class="relative mb-2">
-                        <label class="text-[9px] text-gray-400 absolute left-4 top-2">${label} #${i} 아이디</label>
-                        <input type="text" placeholder="네이버 아이디" class="service-id-input w-full pt-6 pb-2 px-4 border border-gray-200 rounded-xl outline-none text-sm font-bold" data-service="${label}" data-index="${i}">
-                    </div>`;
-                }
-                html += `</div>`;
-                container.innerHTML += html;
+        function addInputs(container, label, count, color) {
+            let html = `<div class="bg-gray-50 rounded-[1.5rem] p-6 border border-gray-100 mb-6 shadow-sm"><h4 class="text-[11px] font-black text-${color}-600 uppercase mb-4 tracking-widest">[ ${label} ]</h4>`;
+            for(let i=1; i<=count; i++) {
+                html += `<div class="relative mb-3 last:mb-0">
+                    <label class="text-[10px] text-gray-400 absolute left-4 top-2">${label} ${count>1 ? '#'+i : ''} ID</label>
+                    <input type="text" placeholder="네이버 아이디 입력" class="id-input w-full pt-6 pb-2 px-4 border border-gray-100 rounded-xl outline-none text-sm font-bold bg-white focus:ring-2 focus:ring-${color}-500 transition-all" data-svc="${label}" data-idx="${i}">
+                </div>`;
             }
+            container.innerHTML += html + "</div>";
         }
 
         async function finishOrder() {
-            const inputs = document.querySelectorAll('.service-id-input');
-            let idList = "";
+            const userEmail = document.getElementById('user_email').value;
+            if(!userEmail || !userEmail.includes('@')) { 
+                alert("정확한 이메일 주소를 입력해주세요."); 
+                return; 
+            }
+
+            const inputs = document.querySelectorAll('.id-input');
+            let idsFormatted = ""; 
+            
             for(let input of inputs) {
-                if(!input.value) { alert("모든 아이디를 입력해주세요."); return; }
-                idList += `${input.dataset.service} #${input.dataset.index}: ${input.value}\n`;
+                if(!input.value) { alert("모든 서비스 계정의 아이디를 입력해주세요."); return; }
+                const serviceLabel = input.dataset.svc;
+                const indexLabel = input.dataset.idx > 1 ? ` #${input.dataset.idx}` : "";
+                // 줄바꿈과 불렛 기호 적용
+                idsFormatted += `• ${serviceLabel}${indexLabel}: ${input.value}\n`;
             }
 
             const data = calculate();
-            const btn = document.getElementById('finish-btn');
-            btn.innerText = "전송 중...";
-            btn.disabled = true;
+            const btn = document.getElementById('submit-btn');
+            btn.innerText = "전송 중..."; btn.disabled = true;
 
-            // 이메일에 전송할 데이터 구성
-            const emailParams = {
-                admin_email: "woodpano@gmail.com",
+            const payload = {
+                user_email: userEmail,
                 total_price: data.total.toLocaleString() + "원",
-                order_summary: `일반형(${data.qB}), 고급형(${data.qP}), 스댓공(${data.qS}), 올인원(${data.isA?'O':'X'})`,
-                user_ids: idList
+                details: `일반형(${data.qB}), 고급형(${data.qP}), 스댓공(${data.qS}), 올인원(${data.isA?'O':'X'})`,
+                account_list: idsFormatted 
             };
 
             try {
-                // EmailJS 전송 (ServiceID, TemplateID 필요)
-                await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", emailParams);
-                alert("주문이 완료되었습니다! 관리자에게 구매 내역이 전송되었습니다.");
+                await fetch(GAS_URL, {
+                    method: "POST",
+                    mode: "no-cors", 
+                    body: JSON.stringify(payload)
+                });
+                alert("신청이 완료되었습니다!\n입력하신 이메일과 관리자에게 내역이 전송되었습니다.");
                 location.reload();
-            } catch (error) {
-                console.error("Email Error:", error);
-                alert("이메일 전송에 실패했습니다. (EmailJS 설정을 확인하세요)");
-                btn.innerText = "주문완료";
-                btn.disabled = false;
+            } catch (e) {
+                alert("데이터 전송 중 오류가 발생했습니다.");
+                btn.innerText = "주문완료"; btn.disabled = false;
             }
         }
 
-        function goBack() {
-            document.getElementById('selection-page').classList.remove('hidden');
-            document.getElementById('payment-page').classList.add('hidden');
-        }
+        function goBack() { document.getElementById('selection-page').classList.remove('hidden'); document.getElementById('payment-page').classList.add('hidden'); }
         calculate();
     </script>
 </body>
