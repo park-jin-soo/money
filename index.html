@@ -222,11 +222,31 @@
 
         function addInputs(container, label, count, color) {
             let html = `<div class="bg-gray-50 rounded-[1.5rem] p-6 border border-gray-100 mb-6 shadow-sm"><h4 class="text-[11px] font-black text-${color}-600 uppercase mb-4 tracking-widest">[ ${label} ]</h4>`;
+            
+            // 쇼핑커넥트 전용 일반형 또는 고급형인 경우 각 계정당 2개 입력 필드 생성
+            const isShoppingConnect = label.includes('쇼핑커넥트 전용 일반형') || label.includes('쇼핑커넥트 전용 고급형');
+            
             for(let i=1; i<=count; i++) {
-                html += `<div class="relative mb-3 last:mb-0">
-                    <label class="text-[10px] text-gray-400 absolute left-4 top-2">${label} ${count>1 ? '#'+i : ''} ID</label>
-                    <input type="text" placeholder="네이버 아이디 입력" class="id-input w-full pt-6 pb-2 px-4 border border-gray-100 rounded-xl outline-none text-sm font-bold bg-white focus:ring-2 focus:ring-${color}-500 transition-all" data-svc="${label}" data-idx="${i}">
-                </div>`;
+                if(isShoppingConnect) {
+                    // 쇼핑커넥트: 각 계정당 2개 입력 필드
+                    html += `<div class="mb-4">
+                        <p class="text-[10px] text-gray-500 font-semibold mb-2">${label} ${count>1 ? '#'+i : ''} 계정</p>
+                        <div class="relative mb-3">
+                            <label class="text-[10px] text-gray-400 absolute left-4 top-2">쇼핑커넥터 아이디</label>
+                            <input type="text" placeholder="쇼핑커넥터 아이디 입력" class="id-input w-full pt-6 pb-2 px-4 border border-gray-100 rounded-xl outline-none text-sm font-bold bg-white focus:ring-2 focus:ring-${color}-500 transition-all" data-svc="${label}" data-idx="${i}" data-type="shoppingconnect">
+                        </div>
+                        <div class="relative mb-3">
+                            <label class="text-[10px] text-gray-400 absolute left-4 top-2">블로그 아이디</label>
+                            <input type="text" placeholder="블로그 아이디 입력" class="id-input w-full pt-6 pb-2 px-4 border border-gray-100 rounded-xl outline-none text-sm font-bold bg-white focus:ring-2 focus:ring-${color}-500 transition-all" data-svc="${label}" data-idx="${i}" data-type="blog">
+                        </div>
+                    </div>`;
+                } else {
+                    // 기타 서비스: 기존대로 1개 입력 필드
+                    html += `<div class="relative mb-3 last:mb-0">
+                        <label class="text-[10px] text-gray-400 absolute left-4 top-2">${label} ${count>1 ? '#'+i : ''} ID</label>
+                        <input type="text" placeholder="네이버 아이디 입력" class="id-input w-full pt-6 pb-2 px-4 border border-gray-100 rounded-xl outline-none text-sm font-bold bg-white focus:ring-2 focus:ring-${color}-500 transition-all" data-svc="${label}" data-idx="${i}">
+                    </div>`;
+                }
             }
             container.innerHTML += html + "</div>";
         }
@@ -242,11 +262,29 @@
             let idsFormatted = ""; 
             
             for(let input of inputs) {
-                if(!input.value) { alert("모든 서비스 계정의 아이디를 입력해주세요."); return; }
+                if(!input.value) { 
+                    const inputType = input.dataset.type;
+                    if(inputType === 'shoppingconnect') {
+                        alert("모든 쇼핑커넥터 아이디를 입력해주세요."); 
+                    } else if(inputType === 'blog') {
+                        alert("모든 블로그 아이디를 입력해주세요."); 
+                    } else {
+                        alert("모든 서비스 계정의 아이디를 입력해주세요."); 
+                    }
+                    return; 
+                }
                 const serviceLabel = input.dataset.svc;
                 const indexLabel = input.dataset.idx > 1 ? ` #${input.dataset.idx}` : "";
-                // 줄바꿈과 불렛 기호 적용
-                idsFormatted += `• ${serviceLabel}${indexLabel}: ${input.value}\n`;
+                const inputType = input.dataset.type;
+                
+                // 쇼핑커넥트의 경우 입력 타입 표시
+                if(inputType === 'shoppingconnect') {
+                    idsFormatted += `• ${serviceLabel}${indexLabel} - 쇼핑커넥터 아이디: ${input.value}\n`;
+                } else if(inputType === 'blog') {
+                    idsFormatted += `• ${serviceLabel}${indexLabel} - 블로그 아이디: ${input.value}\n`;
+                } else {
+                    idsFormatted += `• ${serviceLabel}${indexLabel}: ${input.value}\n`;
+                }
             }
 
             const data = calculate();
