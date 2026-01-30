@@ -47,8 +47,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-[2rem] shadow-xl p-8 border-2 border-blue-500 flex flex-col relative transform lg:scale-105 z-10">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-[11px] font-black shadow-lg">추천상품</div>
+            <div class="bg-white rounded-[2rem] shadow-sm p-8 border border-gray-200 flex flex-col transition-all hover:shadow-md">
                 <div class="mb-5 text-center">
                     <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded uppercase tracking-widest">Shopping Connect</span>
                     <h2 class="text-2xl font-bold text-gray-800 mt-2">쇼핑커넥트 전용 고급형</h2>
@@ -67,7 +66,7 @@
                     <label class="block text-[11px] font-bold text-blue-400 mb-2 leading-tight italic">사용할 계정수량에 맞춰 선택하세요</label>
                     <select id="qty_premium" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-blue-200 rounded-xl p-2.5 outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
                         <option value="0">선택 안함</option>
-                        <script>for(let i=1; i<=10; i++) document.write(`<option value="${i}" ${i===1?'selected':''}>${i}계정</option>`);</script>
+                        <script>for(let i=1; i<=10; i++) document.write(`<option value="${i}">${i}계정</option>`);</script>
                     </select>
                 </div>
             </div>
@@ -93,11 +92,12 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-[2rem] shadow-sm p-8 border border-gray-200 flex flex-col transition-all hover:shadow-md">
+            <div class="bg-white rounded-[2rem] shadow-xl p-8 border-2 border-purple-500 flex flex-col relative transform lg:scale-105 z-10">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-500 text-white px-4 py-1 rounded-full text-[11px] font-black shadow-lg">추천상품</div>
                 <div class="mb-4 text-center">
                     <span class="text-[10px] font-black text-purple-500 bg-purple-50 px-2 py-1 rounded uppercase tracking-widest">Utility Pack</span>
                     <h2 class="text-xl font-bold text-gray-800 mt-2">올인원 월 구독</h2>
-                    <p class="text-xl font-bold text-purple-600 mt-1">10,000원</p>
+                    <p class="text-xl font-bold text-purple-600 mt-1">10,000원 <span class="text-xs text-gray-400 font-normal">/ 월·계정</span></p>
                 </div>
                 <div class="grid grid-cols-2 gap-1.5 mb-4 border-t pt-4">
                     <div class="program-card">시니어공감</div><div class="program-card">체험단맛집</div>
@@ -110,9 +110,12 @@
                         올인원 마크 있는 프로그램은<br>구독기간 전체 사용가능합니다.
                     </p>
                 </div>
-                <div class="mt-auto bg-purple-50 p-4 rounded-xl flex items-center justify-between border border-purple-100">
-                    <span class="text-xs font-bold text-purple-700">단독 구독하기</span>
-                    <input type="checkbox" id="check_allinone" onchange="calculate()" class="w-6 h-6 rounded border-purple-300 text-purple-600 cursor-pointer focus:ring-purple-500">
+                <div class="mt-auto bg-purple-50 p-4 rounded-2xl border-2 border-purple-200 text-center">
+                    <label class="block text-[11px] font-bold text-purple-400 mb-2 leading-tight italic">사용할 계정수량에 맞춰 선택하세요</label>
+                    <select id="qty_allinone" onchange="calculate()" class="w-full text-center text-lg font-bold bg-white border border-purple-200 rounded-xl p-2.5 outline-none cursor-pointer focus:ring-2 focus:ring-purple-500">
+                        <option value="0">선택 안함</option>
+                        <script>for(let i=1; i<=10; i++) document.write(`<option value="${i}">${i}계정</option>`);</script>
+                    </select>
                 </div>
             </div>
         </div>
@@ -187,13 +190,12 @@
             const qB = parseInt(document.getElementById('qty_basic').value) || 0;
             const qP = parseInt(document.getElementById('qty_premium').value) || 0;
             const qS = parseInt(document.getElementById('qty_sdg').value) || 0;
-            const isA = document.getElementById('check_allinone').checked;
+            const qA = parseInt(document.getElementById('qty_allinone').value) || 0;
 
-            let total = (qB * PRICES.BASIC) + (qP * PRICES.PREMIUM) + (qS * PRICES.SDG);
-            if (isA) total += PRICES.ALLINONE;
+            let total = (qB * PRICES.BASIC) + (qP * PRICES.PREMIUM) + (qS * PRICES.SDG) + (qA * PRICES.ALLINONE);
 
             document.getElementById('display_total').innerText = total.toLocaleString();
-            return { total, qB, qP, qS, isA };
+            return { total, qB, qP, qS, qA };
         }
 
         function goToPayment() {
@@ -211,7 +213,7 @@
             if(data.qB > 0) { addSummary(summary, '쇼핑커넥트 전용 일반형', data.qB); addInputs(fields, '쇼핑커넥트 전용 일반형', data.qB, 'blue'); }
             if(data.qP > 0) { addSummary(summary, '쇼핑커넥트 전용 고급형', data.qP); addInputs(fields, '쇼핑커넥트 전용 고급형', data.qP, 'indigo'); }
             if(data.qS > 0) { addSummary(summary, '유료 스댓공체 프로그램', data.qS); addInputs(fields, '유료 스댓공체 프로그램', data.qS, 'purple'); }
-            if(data.isA) { addSummary(summary, '올인원 구독 서비스', 1); addInputs(fields, '올인원 구독', 1, 'purple'); }
+            if(data.qA > 0) { addSummary(summary, '올인원 구독 서비스', data.qA); addInputs(fields, '올인원 구독', data.qA, 'purple'); }
 
             window.scrollTo(0, 0);
         }
@@ -358,7 +360,7 @@
             const payload = {
                 user_email: userEmail,
                 total_price: data.total.toLocaleString() + "원",
-                details: `쇼핑커넥트 전용 일반형(${data.qB}), 쇼핑커넥트 전용 고급형(${data.qP}), 유료 스댓공체 프로그램(${data.qS}), 올인원(${data.isA?'O':'X'})`,
+                details: `쇼핑커넥트 전용 일반형(${data.qB}), 쇼핑커넥트 전용 고급형(${data.qP}), 유료 스댓공체 프로그램(${data.qS}), 올인원(${data.qA})`,
                 account_list: idsFormatted 
             };
 
